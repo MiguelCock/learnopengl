@@ -17,7 +17,7 @@ setWindow :: proc() -> glfw.WindowHandle{
 	}
 
     // ======================================
-	window := glfw.CreateWindow(500, 500, PROGRAMNAME, nil, nil)
+	window := glfw.CreateWindow(700, 700, PROGRAMNAME, nil, nil)
 	if window == nil {
 		fmt.println("Unable to create window")
 		return nil

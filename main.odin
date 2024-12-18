@@ -6,7 +6,7 @@ import "core:strings"
 import "core:os"
 import "core:math"
 
-import stb "vendor:stb/image"
+import stbi "vendor:stb/image"
 import gl "vendor:OpenGL"
 import "vendor:glfw"
 
@@ -31,19 +31,28 @@ main :: proc(){
 
     // ====================================== Set up vertex data and buffers
     vbo, ebo, vao: u32
-    vxo2(&vbo, &ebo, &vao)
+    vxo3(&vbo, &ebo, &vao)
     defer gl.DeleteBuffers(1, &vbo)
     defer gl.DeleteBuffers(1, &ebo)
     defer gl.DeleteVertexArrays(1, &vao)
+
+    tex0: u32
+    genTexture(&tex0, "imgs/pik.png")
+    defer gl.DeleteTextures(1, &tex0)
+
+    tex1: u32
+    genTexture(&tex1, "imgs/rat.png")
+    defer gl.DeleteTextures(1, &tex1)
+
+    gl.UseProgram(shaderProgram)
+    gl.Uniform1i(gl.GetUniformLocation(shaderProgram, "texture1"), 0)
+    gl.Uniform1i(gl.GetUniformLocation(shaderProgram, "texture2"), 1)
 
     colorLocation := gl.GetUniformLocation(shaderProgram, "new_color")
     if colorLocation < 0 {
         fmt.println("Failed to find color location")
         return
     }
-
-    wit, hig, nrCha: i32
-    data := stb.load("a", &wit, &hig, &nrCha, 0)
 
     // ======================================
 	for (!glfw.WindowShouldClose(window) && running) {
@@ -55,8 +64,13 @@ main :: proc(){
         //===================
         time := cast(f32)glfw.GetTime()
         val := (math.sin(time) / 2.0) + 0.5;
-        gl.Uniform4f(colorLocation, 1, val, 1, 1)
+        gl.Uniform4f(colorLocation, val, val, val, 0.0)
         //===================
+
+        gl.ActiveTexture(gl.TEXTURE0)
+        gl.BindTexture(gl.TEXTURE_2D, tex0)
+        gl.ActiveTexture(gl.TEXTURE1)
+        gl.BindTexture(gl.TEXTURE_2D, tex1)
 
         gl.UseProgram(shaderProgram)
 
