@@ -20,6 +20,6 @@ genTexture :: proc(tex: ^u32, filepath: cstring) {
     //gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
     //gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
     gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST)
-    gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGB, wit, hig, 0, gl.RGBA, gl.UNSIGNED_BYTE, img)
+    gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, wit, hig, 0, gl.RGBA, gl.UNSIGNED_BYTE, img)
     gl.GenerateMipmap(gl.TEXTURE_2D)
 }

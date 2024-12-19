@@ -37,11 +37,11 @@ main :: proc(){
     defer gl.DeleteVertexArrays(1, &vao)
 
     tex0: u32
-    genTexture(&tex0, "imgs/pik.png")
+    genTexture(&tex0, "imgs/background.png")
     defer gl.DeleteTextures(1, &tex0)
 
     tex1: u32
-    genTexture(&tex1, "imgs/rat.png")
+    genTexture(&tex1, "imgs/backd.png")
     defer gl.DeleteTextures(1, &tex1)
 
     gl.UseProgram(shaderProgram)
@@ -64,7 +64,7 @@ main :: proc(){
         //===================
         time := cast(f32)glfw.GetTime()
         val := (math.sin(time) / 2.0) + 0.5;
-        gl.Uniform4f(colorLocation, val, val, val, 0.0)
+        gl.Uniform4f(colorLocation, val, val, val, val)
         //===================
 
         gl.ActiveTexture(gl.TEXTURE0)

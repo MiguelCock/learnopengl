@@ -10,7 +10,7 @@ out vec2 TexCoord;
 uniform vec4 new_color;
 
 void main() {
-    gl_Position = vec4(aPos, 1.0) + new_color.xxxx;
+    gl_Position = vec4(aPos, 1.0) + new_color.xxxx*0;
     vertexColor = aColor;
     TexCoord = aTexCoord;
 }
